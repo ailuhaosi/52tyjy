@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>Meadowlark Travel</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <fieldset>
+        <legend>益起学</legend>
+        <form action="http://localhost:3000/home" method="POST" id="login_form" name="login_form">
+            <input type="hidden" name="hush" val="hidden, but not secret!">
+            <p>
+                <label for="username">用户名: </label>
+                <input type="text" id="username" name="username">
+            </p>
+            <p>
+                <label for="password">密码: </label>
+                <input type="password" id="password" name="password">
+            </p>
+            <p>
+                <div id="v_container" style="width: 200px;height: 50px;"></div>
+                <input type="text" id="code_input" name="code_input" placeholder="请输入验证码" />
+                <button type="button" id="my_button">验证</button>
+            </p>
+            <p>
+                <button type="submit" id="login_submit">登录</button>
+                <button type="button" id="register_submit" onclick="javascrtpt:window.location.href='http://localhost:3000/mytest'">注册</button>
+            </p>
+        </form>
+    </fieldset>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../mypackage/Jquery/jquery-validation/jquery.validate.js"></script>
+    <script src="../mypackage/Jquery/jquery-validation/messages_zh.js"></script>
+    <script src="../mypackage/Jquery/javascript-verify/gVerify.js"></script>
+
+    <script type="text/javascript">
+        //画验证码
+        var verify_res = false;
+        var verifyCode = new GVerify("v_container");
+        document.getElementById("my_button").onclick = function () {
+            verify_res = verifyCode.validate(document.getElementById("code_input").value);
+            if (verify_res) {
+                alert("验证正确");
+            } else {
+                alert("验证码错误");
+            }
+        }
+
+        //自定义校验器方法
+        $.validator.addMethod("myverify", function (value, element, param) {
+            return this.optional(element) || (verify_res == true);
+        }, "");
+        //最先加载校验rules，不能用变量，
+        $(function () {
+            $('#login_form').validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 2
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6,
+                        remote: {
+                            url: 'http://localhost:3000/login_check',
+                            type: 'post',
+                            dataType: 'JSON',
+                            data: {
+                                username: function () {
+                                    return $("#username").val();
+                                },
+                                password: function () {
+                                    return $("#password").val();
+                                }
+                            }
+                        }
+                    },
+                    code_input: {
+                        required: true,
+                        myverify: true
+                    },
+                    message: {
+                        username: {
+                            required: '请输入用户名',
+                            minlength: '用户名必需由两个字母组成'
+                        },
+                        password: {
+                            required: '请输入密码',
+                            minlength: '密码长度不能小于 6 个字母',
+                            remote: '密码错误'
+                        },
+                        code_input: {
+                            required: '请输入验证码',
+                            myverify: ''
+                        }
+                    }
+                },
+
+                submitHandler: function (form) {
+
+                    var username = $('#username').val();
+                    var password = $('#password').val();
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'http://localhost:3000/login_submit',
+                        dataType: 'json',
+                        data: {
+                            username: username,
+                            password: password
+                        },
+                        success: function (data) {
+                            alert('登陆成功');
+                            window.location.href = 'http://localhost:3000/home';
+                            return true;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
