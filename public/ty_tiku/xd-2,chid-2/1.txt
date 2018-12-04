@@ -1,0 +1,86 @@
+<li class="QuestionView" data-no="1">
+  <div class="question-block">
+    <div class="q-mc">
+      <div class="q-tit">1. 一学生推铅球，铅球行进的高度
+        <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmi%3Ey%3C%2Fmi%3E%3Cmrow%3E%3Cmo%3E%28%3C%2Fmo%3E%3Cmi%3Em%3C%2Fmi%3E%3Cmo%3E%29%3C%2Fmo%3E%3C%2Fmrow%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+          style="vertical-align: middle;"> 与水平距离
+        <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmi%3Ex%3C%2Fmi%3E%3Cmrow%3E%3Cmo%3E%28%3C%2Fmo%3E%3Cmi%3Em%3C%2Fmi%3E%3Cmo%3E%29%3C%2Fmo%3E%3C%2Fmrow%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+          style="vertical-align: middle;"> 之间的关系为
+        <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmi%3Ey%3C%2Fmi%3E%3Cmo%3E%3D%3C%2Fmo%3E%3Cmo%3E%E2%88%92%3C%2Fmo%3E%3Cmfrac%3E%3Cmn%3E1%3C%2Fmn%3E%3Cmrow%3E%3Cmn%3E12%3C%2Fmn%3E%3C%2Fmrow%3E%3C%2Fmfrac%3E%3Cmsup%3E%3Cmi%3Ex%3C%2Fmi%3E%3Cmn%3E2%3C%2Fmn%3E%3C%2Fmsup%3E%3Cmo%3E%2B%3C%2Fmo%3E%3Cmfrac%3E%3Cmn%3E2%3C%2Fmn%3E%3Cmn%3E3%3C%2Fmn%3E%3C%2Fmfrac%3E%3Cmi%3Ex%3C%2Fmi%3E%3Cmo%3E%2B%3C%2Fmo%3E%3Cmfrac%3E%3Cmn%3E5%3C%2Fmn%3E%3Cmn%3E3%3C%2Fmn%3E%3C%2Fmfrac%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+          style="vertical-align: middle;"> ，则学生推铅球的距离为（ &nbsp;&nbsp;） </div>
+      <div class="exam-s">
+        <span class="op-item" w="24" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+          <span class="op-item-nut">A . </span>
+          <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+            <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmfrac%3E%3Cmn%3E3%3C%2Fmn%3E%3Cmn%3E5%3C%2Fmn%3E%3C%2Fmfrac%3E%3Cmi%3Em%3C%2Fmi%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+              style="vertical-align: middle;">
+          </span>
+        </span>
+        <span class="op-item" w="24" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+          <span class="op-item-nut">B . </span>
+          <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+            <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmn%3E3%3C%2Fmn%3E%3Cmi%3Em%3C%2Fmi%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+              style="vertical-align: middle;">
+          </span>
+        </span>
+        <span class="op-item" w="24" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+          <span class="op-item-nut">C . </span>
+          <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+            <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmn%3E10%3C%2Fmn%3E%3Cmi%3Em%3C%2Fmi%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+              style="vertical-align: middle;">
+          </span>
+        </span>
+        <span class="op-item" w="24" h="24" style="width: 221px; margin-right: 0px; height: 24px; clear: none;">
+          <span class="op-item-nut">D . </span>
+          <span class="op-item-meat" style="margin-top: 0px; white-space: normal;">
+            <img class="mathml" src="//math.21cnjy.com/MathMLToImage?mml=%3Cmath+xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F1998%2FMath%2FMathML%22%3E%3Cmrow%3E%3Cmn%3E12%3C%2Fmn%3E%3Cmi%3Em%3C%2Fmi%3E%3C%2Fmrow%3E%3C%2Fmath%3E&amp;key=b1341f76a5a862a25eeb1b320ec4c1ec"
+              style="vertical-align: middle;">
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="q-analyize">
+      <div class="q-analyize-item J_ana_knw cfx">
+        <strong class="q-analyize-mt">【考点】</strong>
+        <div class="q-analyize-mc">
+          <img _src="//webshot.21cnjy.com/q/18/45/bee1ba515a90bd1caa4d86615d27_8894690kn.png?hash=fc30396623823906f9fcb30c3d8b4043&amp;sign=828dc95251badc03ef9453746566e04d">
+        </div>
+      </div>
+      <div class="q-analyize-item J_ana_ans cfx">
+        <strong class="q-analyize-mt">【答案】</strong>
+        <div class="q-analyize-mc">
+          <img _src="//webshot.21cnjy.com/q/18/45/bee1ba515a90bd1caa4d86615d27_8894690an.png?hash=d0b8f169c4fbe5bbe60a2e8341ea1f1b&amp;sign=7bd43effbfc593d71828b5539fb545d8">
+        </div>
+      </div>
+      <div class="q-analyize-item J_ana_exp cfx">
+        <strong class="q-analyize-mt">【解析】</strong>
+        <div class="q-analyize-mc">
+          <img _src="//webshot.21cnjy.com/q/18/45/bee1ba515a90bd1caa4d86615d27_8894690ex.png?hash=af719205dd9504bf6420740850ac48a1&amp;sign=6a0cd0902bfb59a98af2c029b05deb7d">
+        </div>
+      </div>
+    </div>
+    <div class="q-origin">
+      <a href="/paper/view/1304486" target="_blank">试题来源：浙江省绍兴市元培中学2019届九年级上学期数学第一次月考试卷（浙教一、二章）</a>
+    </div>
+    <div class="q-msg cfx">
+      <div class="q-attr fl">
+        <span>题型：单选题</span>
+        <em>|</em>
+        <span>题类：常考题</span>
+        <em>|</em>
+        <span>难度：容易</span>
+        <em>|</em>
+        <span>组卷次数：97</span>
+      </div>
+      <div class="q-handle fr">
+        <a href="/question/detail/8894690" target="_blank" class="q-handle-item J_analyize">
+          <i class="iconw-jiexi"></i>查看解析</a>
+        <a href="javascript:;" class="q-handle-item J_collect">
+          <i class="iconw-collect"></i>收藏 </a>
+        <a class="q-handle-item J_report_error">
+          <i class="iconw-error"></i>纠错</a>
+        <a class="q-add-btn J_add_remove">+ 选题</a>
+      </div>
+    </div>
+  </div>
+</li>

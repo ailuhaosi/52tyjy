@@ -1,21 +1,356 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Meadowlark Travel</title>
-    {{{_sections.head}}}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <base href="//www.52tyjy.com/">
+    <title>天益教育</title>
+    <link media="all" rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>{{!-- "https://code.jquery.com/jquery-3.3.1.min.js" --}}
+    <script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link media="all" type="text/css" rel="stylesheet" href="/stylesheets/common/style.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/stylesheets/common/style3.css">
+    <script type="text/javascript" src="/javascripts/common/backtop.js"></script>
+
+    <script type="text/javascript" src="/img/myicon/cart/cart.js"></script>
+    <link media="all" type="text/css" rel="stylesheet" href="/img/myicon/cart/divnum.css">
+    <script type="text/javascript" src="/img/myicon/qq/qq.js"></script>
+    <script type="text/javascript" src="/img/myicon/wechat/wechat.js"></script>
+    <link media="all" type="text/css" rel="stylesheet" href="/img/myicon/common_myicon.css">
+    <script type="text/javascript"> 
+        window.addLoadEvent = function(func) {
+            var oldonload = window.onload;
+            if (typeof window.onload != "function") {
+                window.onload = func;
+            }
+            else {
+                window.onload = function () {
+                    oldonload();
+                    func();
+                }
+            }
+        } 
+    </script>
 </head>
 
-<body>
-    <header>
-        <img src="/img/logo.png" style="width:150px" alt="Meadowlark Travel Logo">
-        <!--transform:scale(0.3)-->
-    </header>
-    {{{body}}}
-    <p>weather:</p>
-    {{> weather}}
-    <p>jquery:</p>
-    <script src="http://code.jquery.com/jquery-2.0.2.min.js"></script> {{{_sections.jquery}}}
+<body>{{!-- onLoad="javascript:window.location.reload(true);" --}}
+    <div style="width:1200px;margin:0 auto;">
+
+        <div class="navbar navbar-default navbar-fixed-top mainhead-navbox" role="navigation">
+            <div class="my_container_bgc container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle mainhead-navbtn" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">菜单导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <div class='navbar-brand'>
+                        <div class="praise">
+                            <span id="praise">
+                                <img src="/img/common/logo.png" id="praise-img" />
+                            </span>
+                            <span id="praise-txt">天益</span>
+                            <span id="add-num">
+                                <em>+1</em>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-collapse collapse mainhead-collapse">
+                    <ul class="nav my_navcollapse">
+                        <li>{{!-- class='active' mainhead-nav --}}
+                            <a href="">首页</a>
+                        </li>
+                        <li>
+                            <a href="register" class="glyphicon glyphicon-user" title="注册">注册</a>
+                        </li>
+                        <li>
+                            <a href="login" class="glyphicon glyphicon-log-in" title='登录'>登录</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="my_ul_bgc container">
+
+            <ul class="my_ul_navbar mainhead-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span id="now_lesson">当前：初中数学</span>
+                        <b id="select_lesson" class="caret"></b>
+                    </a>
+                    <ul id="all_lesson" class="dropdown-menu">
+                        <li>
+                            <div id="middle_lesson" class="my_item">
+                                <h3>初中</h3>
+                                <div class="my_item_li">{{!-- /question?xd=2&amp;chid=1 --}}
+                                    <a href="javascript:;" data-xdchid="2,1" class="">语文</a>
+                                    <a href="javascript:;" data-xdchid="2,2" class="active">数学</a>
+                                    <a href="javascript:;" data-xdchid="2,3" class="">英语</a>
+                                    <a href="javascript:;" data-xdchid="2,4" class="">科学</a>
+                                    <br/>
+                                    <a href="javascript:;" data-xdchid="2,5" class="">物理</a>
+                                    <a href="javascript:;" data-xdchid="2,6" class="">化学</a>
+                                    <a href="javascript:;" data-xdchid="2,7" class="">生物</a>
+                                    <br/>
+                                    <a href="javascript:;" data-xdchid="2,8" class="">政治思品</a>
+                                    <a href="javascript:;" data-xdchid="2,9" class="">历史</a>
+                                    <a href="javascript:;" data-xdchid="2,10" class="">地理</a>
+                                    <br/>
+                                    <a href="javascript:;" data-xdchid="2,11" class="">历史与社会</a>
+                                    <a href="javascript:;" data-xdchid="2,12" class="">社会思品</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div id="high_lesson" class="my_item">
+                                <h3>高中</h3>
+                                <div class="my_item_li">{{!-- /question?xd=3&amp;chid=1 --}}
+                                    <a href="javascript:;" data-xdchid="3,1" class="">语文</a>
+                                    <a href="javascript:;" data-xdchid="3,2" class="">数学</a>
+                                    <a href="javascript:;" data-xdchid="3,3" class="">英语</a>
+                                    <a href="javascript:;" data-xdchid="3,4" class="">物理</a>
+                                    <br/>
+                                    <a href="javascript:;" data-xdchid="3,5" class="">化学</a>
+                                    <a href="javascript:;" data-xdchid="3,6" class="">生物</a>
+                                    <a href="javascript:;" data-xdchid="3,7" class="">政治</a>
+                                    <a href="javascript:;" data-xdchid="3,8" class="">历史</a>
+                                    <br/>
+                                    <a href="javascript:;" data-xdchid="3,9" class="">地理</a>
+                                    <a href="javascript:;" data-xdchid="3,10" class="">信息技术</a>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="dropdown active">
+                    <a href="" title='首页'>首页</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        天益组卷
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="/zujuan_knowledges" class='active'>按知识点组卷</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="zujuan_chapters">按章节组卷</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="zujuan_modules">按模块组卷</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="zujuan_intelligence">智能组卷</a>
+                            </div>
+                        </li>
+                </li>
+                </ul>
+                </li>
+                <li>
+                    <a href="试卷库" title='试卷库'>试卷库</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        论坛中心
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="luntan_ziliao">资料论坛</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="luntan_shipin">视频论坛</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        我的学校
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="myschool_myclass">我的班级情况</a>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class='my_item_li center'>
+                                <a href="myschool_myhomework">我布置的作业</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/user_data" title='个人中心'>个人中心</a>
+                </li>
+
+
+            </ul>
+        </div>
+        {{{body}}}
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="Cart_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">天益教育</h4>
+                    </div>
+                    <div class="modal-body">
+                        <center>
+                            {{!-- 待追加 --}}
+                        </center>
+                    </div>
+                    <div class="modal-footer">
+                        <center>
+                            <button type="button" id='Cart_Modal_btn' class="btn btn-primary" onclick="javascript:window.location.href='toview_cart_detail'">试卷预览</button>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{!--  --}}
+        <div class="rightside">
+            <a href="javascript:;" class="way1" title="试题篮">
+                <svg class="myicon" aria-hidden="true">
+                    <use xlink:href="#icon-cart">
+                        <div class='divnum'>0</div>
+                    </use>
+                </svg>
+            </a>
+            <a href="javascript:;" class="way2" title="QQ咨询">
+                <svg class="myicon" aria-hidden="true">
+                    <use xlink:href="#icon-QQ"></use>
+                </svg>
+            </a>
+            <a href="javascript:;" class="way3" title="微信咨询">
+                <svg class="myicon" aria-hidden="true">
+                    <use xlink:href="#icon-weixin"></use>
+                </svg>
+            </a>
+        </div>
+
+
+        <footer>
+            <div class="container-fluid">
+                <div class="mainfoot center">
+                    <p>
+                        &copy;2016-2017 天益教育 &nbsp; &nbsp;
+                        <a href='about' title='关于天益考吧'>关于我们</a> &nbsp; &nbsp;
+                        <a href='contact' title='联系天益考吧'>联系方式</a>
+                    </p>
+                    <div class='partnerbox'>
+                        <a href="suggestion" target="_blank" title='意见反馈'>意见反馈</a> &nbsp;
+                        <a href="copyright" target="_blank" title='版权声明'>版权声明</a> &nbsp;
+                        <a href="disclaimer" target="_blank" title='免责声明'>免责声明</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--返回顶部-->
+        {{!-- <a href="#0" class="cd-top">Top</a> --}}
+    </div>
 </body>
+
+<script type="text/javascript">
+    /*function(){
+            while (true) {
+                location.reload(true);
+                break;
+            }
+        }();*/
+
+    //年级、科目按钮的事件绑定
+    $(function () {
+        let str, middle_or_high;
+
+        $("#all_lesson .my_item_li a").click(function () {
+            str = $(this).text();
+            $('#all_lesson a').removeClass("active");
+            $(this).addClass("active");
+            middle_or_high = $(this).closest("div").siblings("h3").text();
+            if (middle_or_high === '初中') {
+                $("#now_lesson").text("当前：初中" + str);
+            }
+            else if (middle_or_high === '高中') {
+                $("#now_lesson").text("当前：高中" + str);
+            }
+        })
+
+    });
+
+    //购物车模态弹出框
+    $(document).on('click', '.rightside>a:eq(0)', function () {
+        $('#Cart_Modal').modal('show');
+    })
+</script>
+<script>/*document.write("<script type='text/javascript' src='/javascripts/mypages/main.js?v = " + Date.now() + "'><\/script>");*/</script>
+<script type="text/javascript">
+    //从本地读取购物车信息,并修改购物车弹框内容,以便跨页访问。本地的存储信息来自于访问首页时,从数据库中读取并保持在本地。//FIXME:遗留的bug：这里面只有访问了主页的并登录的,才算用户登录。如果用户登录后直接不去主页,那么就不算登录。而且如果不去主页,那么购物车信息也没有从数据库中读取,那么购物车信息将是上次访问遗留的,此数据可以被修改,因此不太安全。
+    window.addLoadEvent(function () {
+        let Cart_Modal_contents = localStorage.getItem("Cart_Modal_contents");
+        let Cart_Modal_message = localStorage.getItem("Cart_Modal_message");
+        //alert(Cart_Modal_contents);
+        //如果     (用户已经登录,也就是Cart_Modal_message为'undefined')    并且   (数据库中购物车信息为null 或者  购物车信息为undefined,也就是从来没有在数据库中建立购物车信息)
+        if (((Cart_Modal_message == 'undefined') || (Cart_Modal_message == undefined) || (Cart_Modal_message == null) || (Cart_Modal_message == 'null')) && ((Cart_Modal_contents == 'undefined') || (Cart_Modal_contents == 'null') || (Cart_Modal_contents == null) || (Cart_Modal_contents == undefined) || (Cart_Modal_contents == '{}'))) {
+            $('#Cart_Modal .modal-body>center').html('<p>您的购物车，空空如也！</p>');
+            $('.rightside .divnum').text('' + 0);
+            
+        }
+        /*if (Cart_Modal_contents == '{}')
+            { $('#Cart_Modal .modal-body>center').html('<p>您的购物车，空空如也！</p>');}*/
+
+        //如果     (用户已经登录)   并且    (本地存储的购物车信息有数据)
+        else if (((Cart_Modal_message == 'undefined') || (Cart_Modal_message == undefined) || (Cart_Modal_message == null) || (Cart_Modal_message == 'null')) && ((Cart_Modal_contents != 'undefined') && (Cart_Modal_contents != 'null') && (Cart_Modal_contents != null) && (Cart_Modal_contents != undefined) && (Cart_Modal_contents != '{}'))) {
+
+            Cart_Modal_contents = JSON.parse(Cart_Modal_contents);
+            let cart_num = 0;
+            for (let key in Cart_Modal_contents) {
+                if ((typeof (Cart_Modal_contents[key]) == "string") && ((Cart_Modal_contents[key]).indexOf('=') == -1)) {////FIXME:正则表达式不包含=
+                    cart_num = cart_num + parseInt(Cart_Modal_contents[key]);
+                    $('#Cart_Modal .modal-body>center').append('<p>' + key + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + Cart_Modal_contents[key] + '题' + '</p>');
+                }
+            }
+            $('.rightside .divnum').text('' + cart_num);
+        }
+
+        
+        //如果   用户没有登录
+        else if (((Cart_Modal_message != 'undefined') && (Cart_Modal_message != undefined) && (Cart_Modal_message != null) && (Cart_Modal_message != 'null'))) {//|| (Cart_Modal_contents == '{}')
+            $('#Cart_Modal .modal-body>center').html('<p>' + Cart_Modal_message + '</p>');
+            $('.rightside .divnum').text('' + 0);
+        }
+    });
+     
+
+
+</script>
 
 </html>

@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <h3 class="text  col-center-block">欢迎来到天益教育！</h3>
+  </div>
+</div>
+<script> 
+
+  /*if (!window.localStorage) {
+    alert("浏览器不支持localstorage");
+    //return false;
+  } else {
+    alert('浏览器支持localstorage');
+    //主逻辑业务
+  }*/
+
+  //TODO:首页依然会504
+  $(function () {
+    get_cart_save();
+  });
+  ///如果用户已登录，就从数据库对应用户中，获取购物车信息，保存到本地localStorage;如果未登录或登录失效，则清除本地localStorage,并设置未登录标志"Cart_Modal_message"。
+  function get_cart_save() {
+
+    $.ajax({
+      type: 'get',
+      url: '//www.52tyjy.com/cart_save',
+      dataType: 'json',
+      //timeout: 30000,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      async: true,//TODO:false
+      success: function (data) {
+        //用户已登录
+        if (data.type) {
+          alert('购物车信息成功从数据库获取');
+          let Cart_Modal_contents = JSON.stringify(data.data);
+          localStorage.removeItem("Cart_Modal_contents");
+          localStorage.removeItem("Cart_Modal_message");
+          localStorage.clear();
+          localStorage.setItem("Cart_Modal_contents", Cart_Modal_contents);
+
+        }
+        //用户未登录或登录失效
+        if (data.type == false) {
+          let Cart_Modal_message = data.data;
+          localStorage.removeItem("Cart_Modal_contents");
+          localStorage.removeItem("Cart_Modal_message");
+          localStorage.clear();
+          localStorage.setItem("Cart_Modal_message", Cart_Modal_message);
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        console.log('ajax通信成功，但提交失败');
+        console.log('status=' + XMLHttpRequest.status);//500
+        console.log('readyState=' + XMLHttpRequest.readyState);//4
+        console.log('textStatus=' + textStatus);//error
+      }
+    })
+  }
+
+</script>

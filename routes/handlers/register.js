@@ -1,51 +1,84 @@
+var mongoose = require('mongoose');
+var User = mongoose.model('users');
+var jwt = require("jsonwebtoken");
+var myjwt = require('./myjwt.js');
+//var db = require('mongodb');
+
+
 
 exports.register_html = function (req, res, next) {
-    res.render('register', {
+    res.render('main_pages/register', {
         layout: false
     });
 }
 
-//伪数据库数据，以后要用真实数据库替代
-SQL_content = [{
-    "username": "aaa123456",
-    "password": "111111"
-},
-{
-    "username": "123456",
-    "password": "222222"
-},
-{
-    "username": "asdfghj",
-    "password": "333333"
-}
-];
 
 exports.register_check = function (req, res, next) {
-    response = {
-        username: req.body.username       
+    let response = {
+        username_: req.body.username
     };
     console.log(response);
 
-    //在数据库中搜索用户名，名字与response["username"]一样是进入下面密码判断。
-    if (SQL_content[0]["username"] == response["username"]) {
-        console.log("用户名已存在");
-        res.send("false");
-    } else {
-        res.send("true"); //
-    }
+    User.find({
+        username: response["username_"]
+    }, function (err, docs) {
+        if (err) {
+            console.log('Error,注册时，网页异常');
+            res.send('false');
+        } else if (docs.length > 0) {
+            console.log(docs);
+            console.log('用户名已存在，请换其他名字');
+            res.send('false');
+        } else if (docs.length == 0) {
+            console.log('用户名不存在，可以注册');
+            res.send('true');
+        }
+    });
+
 }
 
 exports.register_submit = function (req, res, next) {
-    response = {
-        username: req.body.username,
-        password: req.body.password
+    let response = {
+        username_: req.body.username,
+        password_: req.body.password
     };
     console.log(response);
-    res.send(JSON.stringify(response));
+
+
+    var userModel = new User();
+    userModel.username = req.body.username;
+    userModel.password = req.body.password;
+    userModel.save(function (err, user) {
+        if (err) console.log('新用户信息保存失败');
+        else {
+            console.log('新用户信息保存成功');
+
+            //let mypayload = {username: user.username};
+            user.token = jwt.sign({
+                username: user.username
+            }, myjwt.secret, {
+                expiresIn: 60 * 60 * 5 //5小时到期时间//user.toJSON()
+            });
+
+            user.save(function (err, user1) {
+                if (err) console.log('私有密钥保存失败');
+                else {
+                    console.log('私有密钥保存成功');
+                    console.log(user1.token);
+                    res.json({
+                        type: true,
+                        token: user1.token
+                    });
+                }
+            });
+
+        }
+    });
+
 }
 
 exports.register_ok_html = function (req, res, next) {
-    res.render('register_ok', {
+    res.render('main_pages/register_ok', {
         layout: false
     });
 }

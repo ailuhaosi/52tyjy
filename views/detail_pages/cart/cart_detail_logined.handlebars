@@ -1,0 +1,194 @@
+<link media="all" type="text/css" rel="stylesheet" href="/stylesheets/common/main.css">
+<div class="container-fluid my_container_both">
+  <div class="row">
+    <div class="my_content my_timu_start">
+      <ul id="my_Questions_li">
+
+      </ul>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+//function(){
+  //点击问题li标签，实现答案解析的显示与隐藏 
+  $(document).on('click', '#my_Questions_li>.QuestionView>.question-block>.q-mc', function () {
+    $(this).parent('.question-block').find(".q-analyize").toggle();
+  });
+
+  //鼠标悬停，显示`移除题目`按钮 以及 题型、题类等信息
+  $(document).on('mouseenter mouseleave', '#my_Questions_li>.QuestionView', function () {
+    $(this).find(".q-msg").toggle();
+  });
+
+  //传入json形式的购物车信息，存到数据库中//后台根据网页头信息中的cookie解码后的username来判断存到哪个用户下
+  function post_cart_save(Cart_Modal_contents) {
+
+    //var currentToken = getCookie('access-token');
+    //'access-token': currentToken
+    $.ajax({
+      type: 'post',
+      url: '//www.52tyjy.com/cart_save',
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      async: true,//false
+      data: {
+        Cart_Modal_contents: Cart_Modal_contents
+      },
+      success: function (data) {
+        if (data.type) {
+          alert('购物车信息保存成功');
+        }
+        if (data.type == false) {
+          alert(data.data);
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert('ajax通信成功，但提交失败');
+        alert(XMLHttpRequest.status);//500
+        alert(XMLHttpRequest.readyState);//4
+        alert(textStatus);//error
+      }
+    })
+  }
+
+  //购物车详情页面的 绑定 `移除题目`按钮的事件,同时修改本地存储
+  $(document).on('click', '#my_Questions_li>.QuestionView>.question-block .J_add_remove', function () {
+    alert('hello 移除题目');
+    $(this).parents(".QuestionView").css("display", "none");
+    //修改本地存储
+    let cart_num = parseInt($('.rightside .divnum').text());
+    if (cart_num >= 1) {
+      cart_num--;
+      let data_no = $(this).parents('.QuestionView').attr('data-no');
+      let question_channel_type = $(this).parents('.QuestionView').find('.q-msg span').eq(0).text();
+      question_channel_type = question_channel_type.substring(3);
+
+      let Cart_Modal_contents = localStorage.getItem("Cart_Modal_contents");
+      Cart_Modal_contents = JSON.parse(Cart_Modal_contents);
+      $('#Cart_Modal .modal-body>center p').each(function () {
+
+        let now_text = $(this).text();
+        if (now_text.indexOf(question_channel_type) != -1) {
+          //该题型 找到的数量为1
+          if (Cart_Modal_contents[question_channel_type] == '1') {
+
+            $(this).html('');
+            //$('#Cart_Modal .modal-body>center>div:contains('+data_no+')').remove();
+            delete Cart_Modal_contents[question_channel_type];
+            delete Cart_Modal_contents[question_channel_type + "的data_no"];
+            if (Object.keys(Cart_Modal_contents).length == 2){
+              delete Cart_Modal_contents['myXd'];////FIXME:
+              delete Cart_Modal_contents['myChid'];////FIXME:
+              $(this).text('您的购物车，空空如也！');
+               $('#my_Questions_li').parents('.row').append('<h3 class="text  col-center-block">您的购物车，空空如也！</h3>');
+            }
+            
+            //let delet_data_no_index = Cart_Modal_contents[question_channel_type + "的data_no"].indexOf(data_no);
+            //Cart_Modal_contents[question_channel_type + "的data_no"].splice(delet_data_no_index, 1);
+            Cart_Modal_contents = JSON.stringify(Cart_Modal_contents);
+            localStorage.setItem("Cart_Modal_contents", Cart_Modal_contents);
+
+
+          }
+          //该题型 找到的数量大于1
+          else if (Cart_Modal_contents[question_channel_type] != '1') {
+
+            let q_c_t_num = parseInt(Cart_Modal_contents[question_channel_type]);
+            q_c_t_num--;
+            Cart_Modal_contents[question_channel_type] = '' + q_c_t_num;
+            $(this).html(question_channel_type + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + q_c_t_num + '题');
+            //$('#Cart_Modal .modal-body>center>div:contains(' + data_no + ')').remove();
+            let delet_data_no_index = Cart_Modal_contents[question_channel_type + "的data_no"].indexOf(data_no)
+            Cart_Modal_contents[question_channel_type + "的data_no"].splice(delet_data_no_index, 1);
+            Cart_Modal_contents = JSON.stringify(Cart_Modal_contents);
+            localStorage.setItem("Cart_Modal_contents", Cart_Modal_contents);
+
+          }
+        }
+      });
+      $('.rightside .divnum').text('' + cart_num);
+      
+      let Cart_Modal_contents_end = localStorage.getItem("Cart_Modal_contents");
+      Cart_Modal_contents_end = JSON.parse(Cart_Modal_contents_end);
+      //读取 刚刚修改了的本地存储的购物车信息 提交，保存到，对应用户数据库中
+      post_cart_save(Cart_Modal_contents_end);
+    }
+  })
+
+  //购物车详情页面的题目内容,先从本地读取需要的年级、科目、题号,向后台发送ajax请求
+  //需要最后append,需要其他脚本执行完后再执行,但window.onload并没有最后执行。//FIXME:
+  async function send_cart_ajax() {
+      //读取本地存储的  年级myXd、学科myChid、题型'···的data_no'。
+      let Cart_Modal_contents = localStorage.getItem("Cart_Modal_contents");
+      if ((Cart_Modal_contents == 'undefined') || (Cart_Modal_contents == 'null') || (Cart_Modal_contents == null) || (Cart_Modal_contents == undefined)) {
+        //alert(Cart_Modal_contents);
+        $('#my_Questions_li').parents('.row').append('<h3 class="text  col-center-block">您的购物车，空空如也！</h3>');
+      }
+
+      else {
+        Cart_Modal_contents = JSON.parse(Cart_Modal_contents);
+        let myXd = Cart_Modal_contents['myXd'];
+        let myChid = Cart_Modal_contents['myChid'];
+        let all_data_no;   //形如： {'填空题的data_no':[1,2],'选择题的data_no':[3]}
+        //let cart_num = 0;
+        for (let key in Cart_Modal_contents) {
+          if ((key.indexOf('的data_no') != -1) && (typeof (Cart_Modal_contents[key]) != "string"))//判断值不是字符串，值为数组。Object.prototype.toString.call(o)=='[object Array]'
+          {
+
+            all_data_no = Cart_Modal_contents[key];
+            for (let i = 0, len = all_data_no.length; i < len; i++) {
+              try {
+                await my_question_cart_ajax(myXd, myChid, all_data_no[i]);
+              } catch (err) { console.log(err); }
+            }
+          }
+        }
+      }
+    }
+
+  //购物车详情页面 真正发送程序
+  window.addLoadEvent(send_cart_ajax)
+
+
+  //TODO:购物车详情页面，待修改。504、502问题
+  async function my_question_cart_ajax(Xd, Chid, data_no){
+    try {
+      await (function cart_innerajax(Xd, Chid, data_no) {
+
+        let myUrl = '//www.52tyjy.com/question?' + Xd + '&' + Chid + '&' + 'QuestionsNo_every_page=' + data_no + '&' + 'is_cart_detail='+ 'true';
+        $.ajax({
+          type: 'get',
+          url: myUrl,
+          dataType: 'json',
+          cache: false,
+          //ifModified: true, 
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+          },
+          async: true,//false
+          /*data: {
+            QuestionsNo_every_page: data_no,
+            is_cart_detail: 'true'
+          },*/
+          success: function (data) {
+            //alert('get my_Questions_li成功');
+            if (data.type) {
+              //let doms = $.parseHTML(data.data);
+              $('#my_Questions_li').append(data.data);
+
+            }
+
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('ajax通信成功，但提交失败');
+            alert(XMLHttpRequest.status);//500
+            alert(XMLHttpRequest.readyState);//4
+            alert(textStatus);//error
+          }
+        })
+      })(Xd, Chid, data_no);
+    } catch (err) { console.log(err); }
+}
+</script>

@@ -1,0 +1,20 @@
+
+.divnum { 
+  position: absolute;
+  /* z-index: 99;数字越大越靠前显示*/
+  left: 30px;
+  top: -5px;
+  width: 14px;
+  height: 14px;
+  font-size: 13px;
+  -webkit-border-radius: 2.75em;
+  border-radius: 2.75em;
+  color: #ffff;
+  background-color: #ff0000;
+  display: inline-block;
+  line-height:14px; /* 注意这里的值要与height相同才会垂直居中 */
+  text-align: center;
+    /*display: table-cell;
+    vertical-align: middle; */
+    /* 本来上面两句可以使文字垂直居中，不过这里好像不行，待解决。//FIXME: */
+}

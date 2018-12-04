@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <base href="//www.52tyjy.com/">
+    <title>天益教育</title>
+    <link media="all" rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <link media="all" type="text/css" rel="stylesheet" href="/stylesheets/common/loginstyle.css">
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-horizontal" action="home" method="POST" id="login_form" name="login_form">
+                    <span class="heading">用户登录</span>
+                    <div class="form-group">
+                        <input name="username" type="text" class="form-control" id="username" placeholder="用户名:必需由六个以上字符组成" />
+                    </div>
+                    <div class="form-group">
+                        <input name="password" type="text" class="form-control" id="password" placeholder="密码:必需由六个以上字符组成" data-msg-remote="密码错误"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <center>
+                            <div id="v_container" style="width: 200px;height: 50px;"></div>
+                        </center>
+                        <input type="text" id="code_input" name="code_input" placeholder="请输入验证码" data-msg-required="验证码不能为空"/>
+                        <button type="button" id="my_button">验证</button>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox">记住密码
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <li class="li4">
+                            <input class="submit" type="submit" id="submit" value="立即登录">
+                        </li>
+                        <li class="li4">
+                            <input class="submit" type="submit" id="toRegister" value="没有账号？前往注册" onclick="javascript:window.location.href='register'">
+                        </li>
+                        <li class="li3">
+                            <a class="visitor" href="">游客身份进入</a>
+                        </li>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type='text/javascript' src='/javascripts/jquery-validation/jquery.validate.js'></script>
+<script type='text/javascript' src='/javascripts/jquery-validation/messages_zh.js'></script>
+<script type='text/javascript' src='/javascripts/javascript-verify/gVerify.js'></script>
+
+<script type="text/javascript">
+    //画验证码
+    var verify_res = false;
+    var verifyCode = new GVerify("v_container");
+
+    document.getElementById("my_button").onclick = function () {
+        if (verify_res) {
+            alert("验证正确");
+        } else {
+            alert("验证码错误");
+        }
+    }
+
+    //自定义校验器方法
+    $.validator.addMethod("myverify", function (value, element, param) {
+        let msg = "";
+        if (document.getElementById("code_input").value.length == 4)
+            verify_res = verifyCode.validate(document.getElementById("code_input").value);
+        if ((this.optional(element) || (verify_res == true)) == false)
+            msg = "验证码错误";
+        $.validator.messages.myverify = msg;
+        return this.optional(element) || (verify_res == true);
+    });
+    //最先加载校验rules，不能用变量，//TODO:登录的时候需要加一个ajax判断用户名是否注册，已经注册了的才能登录。而且后台要有逻辑判断登录次数限制,最多不能超过5次。
+    $(function () {
+        $('#login_form').validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 6
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                    remote: {
+                        url: '//www.52tyjy.com/login_check',
+                        type: 'post',
+                        dataType: 'JSON',
+                        data: {
+                            username: function () {
+                                return $("#username").val();
+                            },
+                            password: function () {
+                                return $("#password").val();
+                            }
+                        }
+                    }
+                },
+                code_input: {
+                    required: true,
+                    myverify: true
+                },
+                message: {
+                    username: {
+                        required: '请输入用户名',
+                        minlength: '用户名必需由六个字母组成'
+                    },
+                    password: {
+                        required: '请输入密码',
+                        minlength: '密码长度不能小于 6 个字母',
+                        remote: '密码错误'//估计是validate插件的bug，解决方案可以在对应元素处加 data-msg-remote="密码错误"
+                    },
+                    code_input: {
+                        required: '请输入验证码',
+                        myverify: '验证码错误'
+                    }
+                }
+            },
+
+            submitHandler: function (form) {
+
+                var username = $('#username').val();
+                //var password = $('#password').val();
+                var getCookie = function (name) {
+                    var arr;
+                    var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                    if (arr = document.cookie.match(reg))
+                        return unescape(arr[2]);
+                    else
+                        return null;
+                };
+                var currentToken = getCookie('access-token');//
+
+                $.ajax({
+                    type: 'post',
+                    url: '//www.52tyjy.com/login_submit',
+                    dataType: 'json',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+                        'access-token': currentToken
+                    },
+                    data: {
+                        username: username
+                    },
+                    success: function (data) {
+                        alert('login_submit成功');
+                        if (data && data.type && data.token) {
+                            document.cookie = 'access-token=' + escape(data.token);
+                        }
+                        alert('登陆成功');
+                        window.location.href = '//www.52tyjy.com/home';
+                        return true;
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('ajax通信成功，但提交失败');
+                        alert(XMLHttpRequest.status);//500
+                        alert(XMLHttpRequest.readyState);//4
+                        alert(textStatus);//error
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</html>
