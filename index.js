@@ -3,9 +3,6 @@ var express = require('express');
 var http = require('http');
 var https = require('https');
 
-//http.globalAgent.maxSockets = Infinity; //var req = http.request(options);
-//https.globalAgent.maxSockets = Infinity; //var req = https.request(options);
-
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
 
@@ -44,8 +41,8 @@ var handlebars = require('express-handlebars')
     });
 app.engine('handlebars', handlebars.engine); //将模板引擎扩展名设置为第一个参数
 app.set('view engine', 'handlebars'); //第二个参数与上面扩展名对应
-//process.env.NODE_ENV = 'production';//TODO:上线时修改
-app.set('port', process.env.PORT || 3000); //3000
+process.env.NODE_ENV = 'production';//TODO:上线时修改
+app.set('port', process.env.PORT || 3000); 
 
 app.use(compression());//压缩中间件,提高网页性能
 app.use(express.static(__dirname + '/public'));
